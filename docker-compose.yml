@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  localstack-tn:
+    image: localstack/localstack
+    container_name: localstack-tn
+    environment:
+      - SERVICES=dynamodb
+      - DEFAULT_REGION=us-east-1
+      - DATA_DIR=/tmp/localstack/data
+    # volumes:
+    #   - localstack-tn-data:/tmp/localstack/data
+    ports:
+      - '4566:4566'
+    networks:
+      - my-rest-api-network
+
+# volumes:
+#   localstack-tn-data:
+
+networks:
+  my-rest-api-network:
+    name: my-rest-api-network
