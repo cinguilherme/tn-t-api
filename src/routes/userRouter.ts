@@ -1,28 +1,69 @@
-// src/routes/userRouter.ts
-import { randomUUID } from 'crypto';
-import express from 'express';
-import { BuildUserQueryParams, createUser, deleteUserById, getUserById, getUsers, updateUser } from '../db/userQueries';
-import { validate } from '../middleware/validationMiddleware';
-import { User } from '../models/User';
-import { newUserSchema, userUpdateSchema } from '../validators/userValidator';
+import bcrypt from "bcrypt";
+import { randomUUID } from "crypto";
+import express from "express";
+import {
+  BuildUserQueryParams,
+  createUser,
+  deleteUserById,
+  getUserById,
+  getUserByUsername,
+  getUsers,
+  updateUser,
+} from "../db/userQueries";
+import { validate } from "../middleware/validationMiddleware";
+import { User } from "../models/User";
+import {
+  loginSchema,
+  newUserSchema,
+  userUpdateSchema,
+} from "../validators/userValidator";
 
 const router = express.Router();
 
-router.post('/', validate(newUserSchema), async (req, res) => {
-  
+router.post("/login", validate(loginSchema), async (req, res) => {
   try {
-    const newUser: User = {
-      ...req.body,
-      id: randomUUID(),
-    };
-    const createdUser = await createUser(newUser);
-    res.status(201).send(createdUser);
+    const username = req.body.username;
+    const password = req.body.password;
+    const user = await getUserByUsername(username);
+
+    if (!user) {
+      return res.status(401).json({ error: "Invalid username or password" });
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (isPasswordMatch) {
+      res.status(200).json({ message: "Login successful", user: user });
+    } else {
+      res.status(401).json({ error: "Invalid username or password" });
+    }
   } catch (error) {
-    res.status(500).send({ error: 'Error creating user' });
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-router.get('/', async (req, res) => {
+router.post("/", validate(newUserSchema), async (req, res) => {
+  try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+
+    const user: User = {
+      id: randomUUID(),
+      username: req.body.username,
+      password: hashedPassword,
+      status: req.body.status,
+    };
+
+    await createUser(user);
+    res.status(201).json(user);
+  } catch (error) {
+    console.log("Error creating user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/", async (req, res) => {
   try {
     const queryParams: BuildUserQueryParams = {
       status: req.query.status as string,
@@ -33,49 +74,48 @@ router.get('/', async (req, res) => {
     const { users, lastEvaluatedKey } = await getUsers(queryParams);
     res.status(200).send({ users, lastEvaluatedKey });
   } catch (error) {
-    res.status(500).send({ error: 'Error getting users' });
+    res.status(500).send({ error: "Error getting users" });
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await getUserById(userId);
     if (user) {
       res.status(200).send(user);
     } else {
-      res.status(404).send({ error: 'User not found' });
+      res.status(404).send({ error: "User not found" });
     }
   } catch (error) {
-    res.status(500).send({ error: 'Error getting user' });
+    res.status(500).send({ error: "Error getting user" });
   }
 });
 
-router.put('/:id', validate(userUpdateSchema), async (req, res) => {
+router.put("/:id", validate(userUpdateSchema), async (req, res) => {
   try {
     const updatedUser = await updateUser(req.body);
     if (updatedUser) {
       res.status(200).send(updatedUser);
     } else {
-      res.status(404).send({ error: 'User not found' });
+      res.status(404).send({ error: "User not found" });
     }
   } catch (error) {
-    res.status(500).send({ error: 'Error updating user' });
+    res.status(500).send({ error: "Error updating user" });
   }
-
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const userId = req.params.id;
     const deletedUser = await deleteUserById(userId);
     if (deletedUser) {
       res.status(200).send(deletedUser);
     } else {
-      res.status(404).send({ error: 'User not found' });
+      res.status(404).send({ error: "User not found" });
     }
   } catch (error) {
-    res.status(500).send({ error: 'Error deleting user' });
+    res.status(500).send({ error: "Error deleting user" });
   }
 });
 
