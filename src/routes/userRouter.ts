@@ -60,6 +60,7 @@ router.post("/", validate(newUserSchema), async (req, res) => {
       username: req.body.username,
       password: hashedPassword,
       status: req.body.status,
+      credit: 100, //default value
     };
 
     const { id, username } = await createUser(user);

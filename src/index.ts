@@ -4,6 +4,7 @@ import userRouter from "./routes/userRouter";
 import operationRouter from "./routes/operationRouter";
 import recordRouter from "./routes/recordRouter";
 import * as db from "./db";
+import additionRouter from "./routes/additionRouter";
 
 // db.dropTables().then(() => {
 //   console.log("Tables dropped...");
@@ -29,6 +30,8 @@ app.use(express.json());
 
 app.use("/users", userRouter);
 app.use("/operations", operationRouter);
+app.use("/operations/add", additionRouter);
+
 app.use("/records", recordRouter);
 
 app.listen(port, () => {
