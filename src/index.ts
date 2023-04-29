@@ -5,7 +5,6 @@ import * as db from "./db";
 
 // db.dropTables().then(() => {
 //   console.log("Tables dropped...");
-
 // db.createTables()
 //   .then(() => {
 //     console.log("Tables created...");

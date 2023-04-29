@@ -111,7 +111,7 @@ const createRecordsTable = async () => {
         AttributeType: "S",
       },
       {
-        AttributeName: "userId",
+        AttributeName: "user_id",
         AttributeType: "S",
       },
     ],
@@ -120,7 +120,7 @@ const createRecordsTable = async () => {
         IndexName: "userIdIndex",
         KeySchema: [
           {
-            AttributeName: "userId",
+            AttributeName: "user_id",
             KeyType: "HASH",
           },
         ],

@@ -6,6 +6,7 @@ export const validate =
     console.log("validating req.body", req.body);
     const { error } = schema.validate(req.body);
     if (error) {
+      console.log("validation error", error);
       res.status(400).send({ error: error.details[0].message });
     } else {
       next();

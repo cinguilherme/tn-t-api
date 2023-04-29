@@ -19,6 +19,23 @@ export const createOperation = async (
   return operation;
 };
 
+export const getOperationById = async (id: string): Promise<Operation> => {
+  const params = {
+    TableName: "Operations",
+    Key: {
+      id,
+    },
+  };
+
+  try {
+    const result = await dynamoDb.get(params).promise();
+    return result.Item as Operation;
+  } catch (error) {
+    console.error("Error getting operation by ID:", error);
+    throw error;
+  }
+};
+
 export const deleteOperationById = async (id: string): Promise<boolean> => {
   const params = {
     TableName: "Operations",

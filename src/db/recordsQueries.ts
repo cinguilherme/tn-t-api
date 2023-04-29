@@ -2,26 +2,34 @@
 import { DynamoDB } from "aws-sdk";
 import { randomUUID } from "crypto";
 import { Record } from "../models/Record";
-
-const dynamoDb = new DynamoDB.DocumentClient();
+import dynamoDb from "./dynamoDbClient";
 
 export const addRecord = async (record: Record): Promise<Record> => {
-  record.id = randomUUID();
+  const item = { id: randomUUID(), ...record };
   const params: DynamoDB.DocumentClient.PutItemInput = {
-    TableName: process.env.RECORDS_TABLE,
-    Item: record,
+    TableName: "Records",
+    Item: item,
   };
 
   await dynamoDb.put(params).promise();
 
-  return record;
+  return item;
+};
+
+export const getAllRecords = async (): Promise<Record[]> => {
+  const params: DynamoDB.DocumentClient.ScanInput = {
+    TableName: "Records",
+  };
+
+  const result = await dynamoDb.scan(params).promise();
+  return result.Items as Record[];
 };
 
 export const getRecordsByUser = async (userId: string): Promise<Record[]> => {
   const params: DynamoDB.DocumentClient.QueryInput = {
-    TableName: process.env.RECORDS_TABLE,
+    TableName: "Records",
     IndexName: "userIdIndex",
-    KeyConditionExpression: "userId = :userId",
+    KeyConditionExpression: "user_id = :userId",
     ExpressionAttributeValues: {
       ":userId": userId,
     },
