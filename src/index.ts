@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import userRouter from "./routes/userRouter";
 import operationRouter from "./routes/operationRouter";
 import recordRouter from "./routes/recordRouter";
@@ -19,6 +20,11 @@ import * as db from "./db";
 const app = express();
 const port = process.env.PORT || 3000;
 
+// const corsOptions = {
+//   origin: "http://your-frontend-domain.com",
+// };
+
+app.use(cors());
 app.use(express.json());
 
 app.use("/users", userRouter);
