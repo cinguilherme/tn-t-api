@@ -10,17 +10,17 @@ import {
   getUserByUsername,
   getUsers,
   updateUser,
-} from "../db/userQueries";
-import { validate } from "../middleware/validationMiddleware";
-import { User } from "../models/User";
+} from "../../db/userQueries";
+import { validate } from "../../middleware/validationMiddleware";
+import { User } from "../../models/User";
 import {
   loginSchema,
   newUserSchema,
   userUpdateSchema,
-} from "../validators/userValidator";
-import { authenticateJWT } from "../middleware/authMiddleware";
+} from "../../validators/userValidator";
+import { authenticateJWT } from "../../middleware/authMiddleware";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.post("/login", validate(loginSchema), async (req, res) => {
   try {
@@ -111,5 +111,3 @@ router.delete("/:id", async (req, res) => {
     res.status(500).send({ error: "Error deleting user" });
   }
 });
-
-export default router;

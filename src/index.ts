@@ -1,10 +1,7 @@
 import express from "express";
 import cors from "cors";
-import userRouter from "./routes/userRouter";
-import operationRouter from "./routes/operationRouter";
-import recordRouter from "./routes/recordRouter";
+import { V1 } from "./routes";
 import * as db from "./db";
-import additionRouter from "./routes/additionRouter";
 
 // db.dropTables().then(() => {
 //   console.log("Tables dropped...");
@@ -28,11 +25,9 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.use("/users", userRouter);
-app.use("/operations", operationRouter);
-app.use("/operations/add", additionRouter);
-
-app.use("/records", recordRouter);
+app.use("/v1/users", V1.user.router);
+app.use("/v1/operations", V1.operation.router);
+app.use("/v1/records", V1.record.router);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

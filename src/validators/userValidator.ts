@@ -1,4 +1,3 @@
-// src/validators/userValidator.ts
 import Joi from "joi";
 
 const newUserSchema = Joi.object({

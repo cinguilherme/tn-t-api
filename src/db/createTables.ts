@@ -35,8 +35,8 @@ const createUsersTable = async () => {
       { AttributeName: "username", AttributeType: "S" },
     ],
     ProvisionedThroughput: {
-      ReadCapacityUnits: 5,
-      WriteCapacityUnits: 5,
+      ReadCapacityUnits: 1,
+      WriteCapacityUnits: 1,
     },
 
     GlobalSecondaryIndexes: [
@@ -89,8 +89,8 @@ const createOperationsTable = async () => {
       },
     ],
     ProvisionedThroughput: {
-      ReadCapacityUnits: 5,
-      WriteCapacityUnits: 5,
+      ReadCapacityUnits: 1,
+      WriteCapacityUnits: 1,
     },
   };
   await createTable(params);
@@ -128,14 +128,14 @@ const createRecordsTable = async () => {
           ProjectionType: "ALL",
         },
         ProvisionedThroughput: {
-          ReadCapacityUnits: 5,
-          WriteCapacityUnits: 5,
+          ReadCapacityUnits: 1,
+          WriteCapacityUnits: 1,
         },
       },
     ],
     ProvisionedThroughput: {
-      ReadCapacityUnits: 5,
-      WriteCapacityUnits: 5,
+      ReadCapacityUnits: 1,
+      WriteCapacityUnits: 1,
     },
   };
   await createTable(recordsTableParams);

@@ -1,10 +1,10 @@
 // src/routes/additionRouter.ts
 import express from "express";
-import { authenticateJWT } from "../middleware/authMiddleware";
-import { getUserById, updateUser } from "../db/userQueries";
-import { getOperationCost } from "../models/Operation";
+import { authenticateJWT } from "../../middleware/authMiddleware";
+import { getUserById, updateUser } from "../../db/userQueries";
+import { getOperationCost } from "../../models/Operation";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.post("/", authenticateJWT, async (req, res) => {
   try {
@@ -34,5 +34,3 @@ router.post("/", authenticateJWT, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-export default router;
