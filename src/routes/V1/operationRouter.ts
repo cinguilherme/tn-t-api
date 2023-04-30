@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import {
   createOperation,
   deleteOperationById,
@@ -43,6 +43,7 @@ router.get("/", authenticateJWT, async (_req, res) => {
 router.delete("/:id", authenticateJWT, async (req, res) => {
   try {
     const id = req.params.id;
+    console.log("id", id);
     const deletedOperation = await deleteOperationById(id);
     if (deletedOperation) {
       res.status(200).send(deletedOperation);
