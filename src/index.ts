@@ -18,7 +18,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // const corsOptions = {
-//   origin: "http://your-frontend-domain.com",
+//   origin: "http://your-frontend-domain.com", // get this from ENV
 // };
 
 app.use(cors());

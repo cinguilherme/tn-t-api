@@ -11,21 +11,23 @@ export interface Operation {
   cost: number;
 }
 
-export const getOperationCost = (type: string): number => {
-  switch (type) {
+export const performOperation = (
+  operation: Operation,
+  input1?: number,
+  input2?: number
+) => {
+  switch (operation.type) {
     case "addition":
-      return 10;
+      return input1! + input2!;
     case "subtraction":
-      return 10;
+      return input1! - input2!;
     case "multiplication":
-      return 20;
+      return input1! * input2!;
     case "division":
-      return 20;
+      return input1! / input2!;
     case "square_root":
-      return 30;
+      return Math.sqrt(input1!);
     case "random_string":
-      return 50;
-    default:
-      throw new Error("Invalid operation type");
+      return Math.random().toString(36).substring(2, 15);
   }
 };

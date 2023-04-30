@@ -8,6 +8,7 @@ import {
   getAllRecords,
 } from "../../db/recordsQueries";
 import { Record } from "../../models/Record";
+import { performOperation, Operation } from "../../models/Operation";
 import { recordValidationSchema } from "../../validators/record.validation";
 import { validate } from "../../middleware/validationMiddleware";
 import { randomUUID } from "crypto";
@@ -53,7 +54,7 @@ router.post(
       }
 
       // Perform the operation, assuming it's an addition for now, this has to be dependent on the operation type
-      const result = input1 + input2; // disney, fix latter
+      const result = performOperation(operation, input1, input2);
 
       // Create the new record
       const newRecord: Record = {
@@ -62,7 +63,7 @@ router.post(
         operation_id: operation_id,
         amount: operation.cost,
         user_balance: user.credit,
-        operation_response: result,
+        operation_response: result as string,
         date: new Date().toISOString(),
       };
 
