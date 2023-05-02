@@ -6,6 +6,7 @@ import {
   getRecordsByUser,
   addRecord,
   getAllRecords,
+  deleteRecordById,
 } from "../../db/recordsQueries";
 import { Record } from "../../models/Record";
 import { performOperation, Operation } from "../../models/Operation";
@@ -105,6 +106,21 @@ router.put("/:id", (req: Request, res: Response) => {
   // Add record update logic here
 });
 
-router.delete("/:id", (req: Request, res: Response) => {
-  // Add record deletion logic here
+router.delete("/:id", async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    console.log("id", id);
+
+    if (!id) {
+      return res.status(400).json({ error: "Record ID is required" });
+    }
+
+    await deleteRecordById(id);
+
+    res.status(204).json();
+
+    // Delete record logic here
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });

@@ -38,3 +38,16 @@ export const getRecordsByUser = async (userId: string): Promise<Record[]> => {
   const result = await dynamoDb.query(params).promise();
   return result.Items as Record[];
 };
+
+export const deleteRecordById = async (id: string): Promise<{ id: string }> => {
+  const params: DynamoDB.DocumentClient.DeleteItemInput = {
+    TableName: "Records",
+    Key: {
+      id,
+    },
+  };
+
+  await dynamoDb.delete(params).promise();
+
+  return { id };
+};

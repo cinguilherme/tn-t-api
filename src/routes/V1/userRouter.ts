@@ -40,7 +40,9 @@ router.post("/login", validate(loginSchema), async (req, res) => {
         expiresIn: "1h",
       }); // Set an appropriate expiration time for the token
 
-      res.status(200).json({ message: "Login successful", token: token });
+      res
+        .status(200)
+        .json({ message: "Login successful", token: token, userId: user.id });
     } else {
       res.status(401).json({ error: "Invalid username or password" });
     }
