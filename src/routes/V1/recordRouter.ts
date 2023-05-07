@@ -42,7 +42,7 @@ router.post(
       const operation = await getOperationById(operation_id);
 
       // Check if the user has enough credits to perform the operation
-      const userRecords = await getRecordsByUser(userId);
+      const userRecords = await getRecordsByUser(userId, 500);
       const totalCosts = userRecords
         .map((re) => re.amount)
         .reduce((a, b) => a + b, 0);
@@ -90,12 +90,13 @@ router.get("/", authenticateJWT, async (req, res) => {
 router.get("/user/:id", async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
-
+    const { limit, lastKey } = req.query;
+    
     if (!userId) {
       return res.status(400).json({ error: "User ID is required" });
     }
 
-    const records = await getRecordsByUser(userId);
+    const records = await getRecordsByUser(userId, +limit, lastKey as string);
     res.json(records);
   } catch (error) {
     res.status(500).json({ error: error.message });

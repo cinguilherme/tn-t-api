@@ -25,7 +25,8 @@ export const getAllRecords = async (): Promise<Record[]> => {
   return result.Items as Record[];
 };
 
-export const getRecordsByUser = async (userId: string): Promise<Record[]> => {
+export const getRecordsByUser = async (userId: string, limit: number, lastKey?: string): Promise<Record[]> => {
+  
   const params: DynamoDB.DocumentClient.QueryInput = {
     TableName: "Records",
     IndexName: "userIdIndex",
@@ -33,6 +34,9 @@ export const getRecordsByUser = async (userId: string): Promise<Record[]> => {
     ExpressionAttributeValues: {
       ":userId": userId,
     },
+    ScanIndexForward: false,
+    Limit: limit ? limit : undefined,
+    ExclusiveStartKey: lastKey ? { id: lastKey } : undefined,
   };
 
   const result = await dynamoDb.query(params).promise();
