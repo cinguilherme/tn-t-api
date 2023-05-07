@@ -85,25 +85,30 @@ export const updateUser = async (
 ): Promise<User | null> => {
   const updateExpressionArray = [];
   const expressionAttributeValues = {};
+  const expressionAttributeNames = {};
 
   for (const key in user) {
     if (key !== "id") {
-      updateExpressionArray.push(`${key} = :${key}`);
+      updateExpressionArray.push(`#${key} = :${key}`);
+      expressionAttributeNames[`#${key}`] = key;
       expressionAttributeValues[`:${key}`] = user[key];
     }
   }
 
   const updateExpression = `SET ${updateExpressionArray.join(", ")}`;
-
+  
   const params = {
     TableName: "Users",
     Key: {
       id: user.id,
     },
     UpdateExpression: updateExpression,
+    ExpressionAttributeNames: expressionAttributeNames,
     ExpressionAttributeValues: expressionAttributeValues,
     ReturnValues: "ALL_NEW",
   };
+
+  console.log("params:", params);
 
   try {
     const result = await dynamoDb.update(params).promise();

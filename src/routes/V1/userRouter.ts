@@ -73,6 +73,18 @@ router.post("/", validate(newUserSchema), async (req, res) => {
   }
 });
 
+router.get("/", authenticateJWT, async (req, res) => {
+  try {
+    const queryParams: BuildUserQueryParams = {
+      status: 'active',
+    };
+    const users = await getUsers(queryParams);
+    res.status(200).send(users);
+  } catch (error) {
+    res.status(500).send({ error: "Error getting users" });
+  }
+});
+
 router.get("/:id", authenticateJWT, async (req, res) => {
   try {
     const userId = req.params.id;
