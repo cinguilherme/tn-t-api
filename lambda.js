@@ -1,8 +1,7 @@
-const awsServerlessExpress = require('aws-serverless-express');
-const app = require('./dist/index.js'); // Change './app' to the path of your Express app file
+// lambda.js
+'use strict'
+const awsServerlessExpress = require('aws-serverless-express')
+const { app } = require('./dist/index')
+const server = awsServerlessExpress.createServer(app)
 
-const server = awsServerlessExpress.createServer(app);
-
-exports.handler = (event, context) => {
-  awsServerlessExpress.proxy(server, event, context);
-};
+exports.handler = (event, context) => { awsServerlessExpress.proxy(server, event, context) }

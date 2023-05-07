@@ -12,5 +12,6 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient({
     secretAccessKey: "test",
   }),
 });
+console.log("dynamo client created");
 
 export default dynamoDb;
