@@ -40,10 +40,6 @@ Ensure you have the following installed on your local development machine:
 
 2. Navigate to the project directory:
 
-   ```
-   cd typescript-node-express-api
-   ```
-
 3. Install project dependencies:
 
    ```
@@ -53,7 +49,7 @@ Ensure you have the following installed on your local development machine:
 4. Start the development server:
 
    ```
-   npm run dev
+   npm start
    ```
 
 The API should now be running on [http://localhost:3000](http://localhost:3000).
@@ -78,3 +74,5 @@ The API should now be running on [http://localhost:3000](http://localhost:3000).
 - `GET /records/:userId` - Get all records for a user
 - `GET /records/:userId/:id` - Get a specific record for a user
 - `DELETE /records/:userId/:id` - Delete a specific record for a user
+
+Live Demo: [RootAPI](https://q9wzzzzdhk.execute-api.us-east-1.amazonaws.com/default/%7Bproxy+%7D)
