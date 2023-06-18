@@ -26,7 +26,7 @@ export const router = express.Router();
  * @swagger
  * /users/login:
  *   post:
- *     summary: Login a user
+ *     summary: Login a user, token valid for 1 hour
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -52,7 +52,7 @@ router.post("/login", validate(loginSchema), async (req, res) => {
             return res.status(401).json({error: "Invalid username or password"});
         }
 
-        const isPasswordMatch = await bcrypt.compare(password, user.password);
+        const isPasswordMatch = bcrypt.compare(password, user.password);
 
         if (isPasswordMatch) {
             const secretKey = process.env.JWT_SECRET || "your-secret-key"; // Use an environment variable or a strong secret key
