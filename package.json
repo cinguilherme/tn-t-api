@@ -7,12 +7,16 @@
     "start": "nodemon",
     "build": "tsc",
     "prod": "npm run build && node dist/index.js",
-    "package": "zip -r ../my-express-server.zip ./*"
+    "package": "zip -r ../my-express-server.zip ./*",
+    "test": "jest"
   },
   "author": "Cintra, Guilherme",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "jest": "^29.5.0",
     "nodemon": "^2.0.22",
+    "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"

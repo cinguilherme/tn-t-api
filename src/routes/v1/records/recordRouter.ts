@@ -1,17 +1,17 @@
 import { Router, Request, Response } from "express";
-import { authenticateJWT } from "../../middleware/authMiddleware";
-import { getUserById, updateUser } from "../../db/userQueries";
-import { getOperationById } from "../../db/operationsQueries";
+import { authenticateJWT } from "../../../middleware/authMiddleware";
+import { getUserById, updateUser } from "../../../db/userQueries";
+import { getOperationById } from "../../../db/operationsQueries";
 import {
   getRecordsByUser,
   addRecord,
   getAllRecords,
   deleteRecordById,
-} from "../../db/recordsQueries";
-import { Record } from "../../models/Record";
-import { performOperation, Operation } from "../../models/Operation";
-import { recordValidationSchema } from "../../validators/record.validation";
-import { validate } from "../../middleware/validationMiddleware";
+} from "../../../db/recordsQueries";
+import { Record } from "../../../models/Record";
+import { performOperation, Operation } from "../../../models/Operation";
+import { recordValidationSchema } from "../../../validators/record.validation";
+import { validate } from "../../../middleware/validationMiddleware";
 import { randomUUID } from "crypto";
 
 export const router = Router();
