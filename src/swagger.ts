@@ -62,7 +62,26 @@ const options = {
                             description: 'The user who made the operation',
                         },
                     }
-                }
+                },
+                NewRecord:{
+                    type: 'object',
+                    properties: {
+                        operationId: {},
+                        input1: {},
+                        input2: {},
+                        user: {},
+                    },
+                },
+                Record:{
+                    type: 'object',
+                    properties: {
+                        id: {},
+                        operationId: {},
+                        input1: {},
+                        input2: {},
+                        user: {},
+                    },
+                },
             }
         },
 

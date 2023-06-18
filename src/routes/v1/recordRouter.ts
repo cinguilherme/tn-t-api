@@ -16,6 +16,26 @@ import { randomUUID } from "crypto";
 
 export const router = Router();
 
+/**
+ * @swagger
+ * /records:
+ *   post:
+ *     summary: Create a new Record
+ *     tags: [Records]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/NewRecord'
+ *     responses:
+ *       201:
+ *         description: The operation was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Record'
+ */
 router.post(
   "/",
   authenticateJWT,
@@ -78,6 +98,20 @@ router.post(
   }
 );
 
+/**
+ * @swagger
+ * /records:
+ *   get:
+ *     summary: get all Records
+ *     tags: [Records]
+ *     responses:
+ *       200:
+ *         description: The operation was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Record'
+ */
 router.get("/", authenticateJWT, async (req, res) => {
   try {
     const records = await getAllRecords();
@@ -87,6 +121,20 @@ router.get("/", authenticateJWT, async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /records/user/:id:
+ *   get:
+ *     summary: get user records
+ *     tags: [Records]
+ *     responses:
+ *       200:
+ *         description: The operation was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Record'
+ */
 router.get("/user/:id", async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
@@ -103,10 +151,20 @@ router.get("/user/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.put("/:id", (req: Request, res: Response) => {
-  // Add record update logic here
-});
-
+/**
+ * @swagger
+ * /records:
+ *   delete:
+ *     summary: delete record
+ *     tags: [Records]
+ *     responses:
+ *       200:
+ *         description: The operation was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Record'
+ */
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
