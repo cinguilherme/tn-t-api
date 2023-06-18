@@ -165,4 +165,3 @@ const options = {
 };
 
 export const specs = swaggerJsdoc(options);
-console.log(JSON.stringify(specs, null, 2));

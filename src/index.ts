@@ -39,18 +39,6 @@ app.use("/v1/records", V1.record.router);
 
 app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use("/v1", (req,res) => {
-  console.log('v1 root');
-
-  res.send("TN REST API YOU ARE ON ROOT of v1");
-});
-
-app.use("/", (req,res) => {
-  console.log('root');
-
-  res.send("TN REST API YOU ARE ON ROOT");
-});
-
 if(process.env.NODE_ENV !== "prod"){
   app.listen(port, () => {
     console.log(`Server is running locally on port ${port}`);
