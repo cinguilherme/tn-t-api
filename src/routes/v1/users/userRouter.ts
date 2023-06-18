@@ -10,15 +10,15 @@ import {
     getUserByUsername,
     getUsers,
     updateUser,
-} from "../../db/userQueries";
-import {validate} from "../../middleware/validationMiddleware";
-import {User} from "../../models/User";
+} from "../../../db/userQueries";
+import {validate} from "../../../middleware/validationMiddleware";
+import {User} from "../../../models/User";
 import {
     loginSchema,
     newUserSchema,
     userUpdateSchema,
-} from "../../validators/userValidator";
-import {authenticateJWT} from "../../middleware/authMiddleware";
+} from "../../../validators/userValidator";
+import {authenticateJWT} from "../../../middleware/authMiddleware";
 
 export const router = express.Router();
 

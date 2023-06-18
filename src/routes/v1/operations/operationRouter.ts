@@ -4,10 +4,10 @@ import {
     deleteOperationById,
     getAllOperations,
     getOperationById,
-} from "../../db/operationsQueries";
-import {authenticateJWT} from "../../middleware/authMiddleware";
-import {validate} from "../../middleware/validationMiddleware";
-import {newOperationSchema} from "../../validators/operationValidatior";
+} from "../../../db/operationsQueries";
+import {authenticateJWT} from "../../../middleware/authMiddleware";
+import {validate} from "../../../middleware/validationMiddleware";
+import {newOperationSchema} from "../../../validators/operationValidatior";
 
 const removeUser = (body: any) => {
     const {user, ...rest} = body;
