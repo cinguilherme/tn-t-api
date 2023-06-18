@@ -3,7 +3,7 @@ import Joi from "joi";
 const newUserSchema = Joi.object({
   username: Joi.string().email().required(),
   password: Joi.string().min(8).required(),
-  credits: Joi.number().integer().min(0).max(99000),
+  credit: Joi.number().integer().min(0).max(99000),
   status: Joi.string().valid("active", "inactive", "deleted"),
 });
 
@@ -12,7 +12,7 @@ const userUpdateSchema = Joi.object({
   username: Joi.string().email(),
   password: Joi.string().min(8),
   status: Joi.string().valid("active", "inactive", "deleted"),
-  credits: Joi.number().integer().min(0).max(99000),
+  credit: Joi.number().integer().min(0).max(99000),
 }).min(2); // At least one field other than the ID should be present
 
 const loginSchema = Joi.object({

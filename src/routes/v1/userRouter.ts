@@ -102,7 +102,7 @@ router.post("/", validate(newUserSchema), async (req, res) => {
             username: req.body.username,
             password: hashedPassword,
             status: req.body.status,
-            credit: 100, //default value
+            credit: req.body.credit,
         };
 
         const {id, username, status, credit} = await createUser(user);
@@ -158,9 +158,9 @@ router.get("/", authenticateJWT, async (req, res) => {
 router.get("/:id", authenticateJWT, async (req, res) => {
     try {
         const userId = req.params.id;
-        const {username, id} = await getUserById(userId);
+        const {username, id, status, credit} = await getUserById(userId);
         if (id) {
-            res.status(200).send({username, id});
+            res.status(200).send({username, id, status, credit});
         } else {
             res.status(404).send({error: "User not found"});
         }
@@ -191,9 +191,9 @@ router.get("/:id", authenticateJWT, async (req, res) => {
  */
 router.put("/:id", validate(userUpdateSchema), async (req, res) => {
     try {
-        const updatedUser = await updateUser(req.body);
-        if (updatedUser) {
-            res.status(200).send(updatedUser);
+        const {id, username, status, credit} = await updateUser(req.body);
+        if (id) {
+            res.status(200).send({id, username, status, credit});
         } else {
             res.status(404).send({error: "User not found"});
         }
