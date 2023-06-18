@@ -30,12 +30,6 @@ export const router = express.Router();
  */
 router.post("/login", validate(loginSchema), login);
 
-router.post("/logout", authenticateJWT, (req, res) => {
-
-    // invalidate token
-    res.status(200).json({message: "Logged out successfully"});
-});
-
 /**
  * @swagger
  * /users:
