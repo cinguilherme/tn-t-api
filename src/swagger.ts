@@ -25,6 +25,23 @@ const options = {
 
         components:{
             schemas: {
+                NewOperation: {
+                    type: 'object',
+                    properties: {
+                        type: {
+                            type: 'string',
+                            description: 'The operation type',
+                        },
+                        cost: {
+                            type: 'number',
+                            description: 'The operation cost',
+                        },
+                        user: {
+                            type: 'object',
+                            description: 'The user who made the operation',
+                        },
+                    }
+                },
                 Operation: {
                     type: 'object',
                     properties: {
