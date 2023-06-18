@@ -54,6 +54,9 @@ Ensure you have the following installed on your local development machine:
 
 The API should now be running on [http://localhost:3000](http://localhost:3000).
 
+## Docs
+- `GET /v1/docs` - Swagger UI Documentation
+
 ## API Documentation
 
 ### User
@@ -65,6 +68,7 @@ The API should now be running on [http://localhost:3000](http://localhost:3000).
 
 ### Operation
 
+- `POST /operations` - Create a new operation
 - `GET /operations` - Get a list of all available operations (addition, subtraction, multiplication, division)
 - `GET /operations/:id` - Get an operation by ID
 
