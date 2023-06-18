@@ -82,6 +82,82 @@ const options = {
                         user: {},
                     },
                 },
+                NewUser:{
+                    type: 'object',
+                    properties: {
+                        username: {
+                            type: 'string',
+                            description: 'The username',
+                        },
+                        password: {
+                            type: 'string',
+                            description: 'The password',
+                        },
+                        credits: {
+                            type: 'number',
+                            description: 'The user total credits credits',
+                        },
+                        status: {
+                            type: 'string',
+                            description: 'The user status',
+                        },
+                    }
+                },
+                User:{
+                    type: 'object',
+                    properties: {
+                        id: {
+                            type: 'string',
+                            description: 'The user id',
+                        },
+                        username: {
+                            type: 'string',
+                            description: 'The username',
+                        },
+                        // password: {
+                        //     type: 'string',
+                        //     description: 'The password',
+                        // },
+                        credits: {
+                            type: 'number',
+                            description: 'The user total credits credits',
+                        },
+                        status: {
+                            type: 'string',
+                            description: 'The user status',
+                        },
+                    }
+                },
+                Login:{
+                    type: 'object',
+                    properties: {
+                        username: {
+                            type: 'string',
+                            description: 'The username',
+                        },
+                        password: {
+                            type: 'string',
+                            description: 'The password',
+                        }
+                    }
+                },
+                LoggedInUser:{
+                    type: 'object',
+                    properties: {
+                        message: {
+                            type: 'string',
+                            description: 'A message indicating the login status',
+                        },
+                        token: {
+                            type: 'string',
+                            description: 'The string token to use in the Authorization header',
+                        },
+                        userId: {
+                            type: 'string',
+                            description: 'The user id logged in',
+                        },
+                    }
+                },
             }
         },
 
