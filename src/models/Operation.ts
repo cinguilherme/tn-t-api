@@ -26,7 +26,7 @@ export const performOperation = (
     case "division":
       return input1! / input2!;
     case "square_root":
-      return Math.sqrt(input1!);
+      return Math.sqrt(input2!);
     case "random_string":
       return Math.random().toString(36).substring(2, 15);
   }

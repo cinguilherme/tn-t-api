@@ -15,8 +15,8 @@ export const createRecord = async (req: Request, res: Response) => {
         if (
             !userId ||
             !operation_id ||
-            input1 === undefined ||
-            input2 === undefined
+            (input1 === undefined &&
+                input2 === undefined)
         ) {
             return res.status(400).json({error: "Missing required parameters"});
         }

@@ -21,7 +21,7 @@ describe('Operation', () => {
         });
 
         it('should perform a square root operation', function () {
-            expect(performOperation({id: "1", type: "square_root", cost: 1}, 4)).toEqual(2);
+            expect(performOperation({id: "1", type: "square_root", cost: 1}, -1, 4)).toEqual(2);
         });
 
         it('should perform a random string operation', function () {
