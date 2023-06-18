@@ -47,6 +47,8 @@ export const createRecord = async (req: Request, res: Response) => {
             operation_id: operation_id,
             amount: operation.cost,
             user_balance: user.credit,
+            operation_desc: operation.type,
+            operation_inputs: [input1, input2],
             operation_response: result as string,
             date: new Date().toISOString(),
         };
