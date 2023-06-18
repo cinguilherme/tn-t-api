@@ -1,4 +1,6 @@
 import express from "express";
+import swaggerUi from 'swagger-ui-express';
+import { specs as swaggerDocument } from './swagger';
 import cors from "cors";
 import { V1 } from "./routes";
 import * as db from "./db";
@@ -35,15 +37,17 @@ app.use("/v1/users", V1.user.router);
 app.use("/v1/operations", V1.operation.router);
 app.use("/v1/records", V1.record.router);
 
+app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use("/v1", (req,res) => {
   console.log('v1 root');
-  
-  res.send("TN REST API YOU ARE ON ROOT of V1");
+
+  res.send("TN REST API YOU ARE ON ROOT of v1");
 });
 
 app.use("/", (req,res) => {
   console.log('root');
-  
+
   res.send("TN REST API YOU ARE ON ROOT");
 });
 

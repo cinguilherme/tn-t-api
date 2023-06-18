@@ -15,6 +15,27 @@ const removeUser = (body: any) => {
 };
 
 export const router = Router();
+
+/**
+ * @swagger
+ * /operations:
+ *   post:
+ *     summary: Create a new operation
+ *     tags: [Operations]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Operation'
+ *     responses:
+ *       201:
+ *         description: The operation was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Operation'
+ */
 router.post(
   "/",
   authenticateJWT,
@@ -30,7 +51,21 @@ router.post(
   }
 );
 
-// Get all operations
+
+/**
+ * @swagger
+ * /operations:
+ *   get:
+ *     summary: Create a new operation
+ *     tags: [Operations]
+ *     responses:
+ *       200:
+ *         description: The operation was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Operation'
+ */
 router.get("/", authenticateJWT, async (_req, res) => {
   try {
     const operations = await getAllOperations();
