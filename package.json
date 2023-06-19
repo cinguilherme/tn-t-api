@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "node dist/index.js",
+    "dev": "nodemon",
     "build": "tsc",
     "prod": "npm run build && node dist/index.js",
     "package": "zip -r ../my-express-server.zip ./*",
